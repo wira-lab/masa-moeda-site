@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kedai Kopi Masa Moeda — 24 Jam • Jl. Pancing 93C</title>
+  <meta name="description" content="Tempat Ngopi Nostalgia Masa Moeda yang Indah. Kopi | Gultik | Indomie | Taichan dll. Buka 24 Jam, Halal, tersedia ruangan smoking indoor ber-AC.">
+  <link rel="icon" href="data:,">
+  <meta name="format-detection" content="telephone=no">
+  <style>html{-webkit-tap-highlight-color:transparent}</style>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <script>tailwind={};</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter','ui-sans-serif','system-ui'], display: ['Poppins','Inter'] },
+          colors: { brand: {50:'#f6f5ff', 500:'#6d60ff', 600:'#5a4cff', 700:'#4b3cf3'} },
+          boxShadow: { soft:'0 10px 30px rgba(0,0,0,.08)' }
+        }
+      },
+      darkMode: 'class'
+    }
+  </script>
+  <style>
+    .blob{filter: blur(40px); opacity:.35;}
+    .floaty{animation: floaty 6s ease-in-out infinite;}
+    @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+    .t{transition:all .2s ease}
+    .page{display:none}
+    .page.active{display:block}
+    .btn{padding:.65rem 1rem; border-radius:1rem}
+  </style>
+</head>
+<body class="bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+  <!-- dekorasi background -->
+  <div class="pointer-events-none fixed inset-0 -z-10">
+    <div class="blob absolute -top-16 -left-16 w-60 h-60 rounded-full bg-brand-500/30"></div>
+    <div class="blob absolute top-40 right-0 w-64 h-64 rounded-full bg-emerald-400/30"></div>
+  </div>
+
+  <!-- NAV -->
+  <nav id="nav" class="sticky top-0 z-50 bg-white/80 dark:bg-slate-950/70 backdrop-blur border-b border-slate-200/60 dark:border-slate-800/60 t">
+    <div class="max-w-6xl mx-auto px-3 sm:px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <button id="menuBtn" class="md:hidden p-2 rounded-lg border border-slate-300/70 dark:border-slate-700/60" aria-label="Menu">☰</button>
+        <a href="#/" class="font-display font-bold tracking-wide text-lg sm:text-xl">Masa Moeda</a>
+      </div>
+      <div class="hidden md:flex gap-6 text-sm">
+        <a class="hover:underline" href="#/">Beranda</a>
+        <a class="hover:underline" href="#/menu">Menu</a>
+        <a class="hover:underline" href="#/about">Tentang</a>
+        <a class="hover:underline" href="#/blog">Blog</a>
+        <a class="hover:underline" href="#/contact">Kontak</a>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="themeBtn" class="px-3 py-2 rounded-xl border border-slate-300/70 dark:border-slate-700/60 t text-sm" title="Toggle tema">🌓</button>
+        <button onclick="toggleCart(true)" class="px-3 py-2 rounded-xl border t text-sm">🛒 <span id="cartCount">0</span></button>
+        <button onclick="openWA()" class="hidden sm:inline-flex px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white t shadow-soft text-sm">Chat WA</button>
+      </div>
+    </div>
+    <div class="text-center text-xs sm:text-sm py-2 bg-brand-50 dark:bg-slate-900/60 border-t border-slate-200/60 dark:border-slate-800/60">
+      🕚 <b>BUKA 24 JAM</b> • Halal • <b>Smoking Room Indoor ber-AC</b> • Jl. Pancing No. 93C, Medan
+    </div>
+  </nav>
+
+  <!-- MOBILE DRAWER NAV -->
+  <aside id="mnav" class="fixed left-0 top-0 h-full w-72 max-w-[85%] bg-white dark:bg-slate-950 border-r border-slate-200 dark:border-slate-800 -translate-x-full t z-[60]">
+    <div class="p-4 border-b flex items-center justify-between">
+      <b class="font-display">Masa Moeda</b>
+      <button class="text-sm underline" onclick="toggleMnav(false)">Tutup</button>
+    </div>
+    <nav class="p-4 grid gap-3 text-sm">
+      <a class="py-2 border-b" href="#/" onclick="toggleMnav(false)">Beranda</a>
+      <a class="py-2 border-b" href="#/menu" onclick="toggleMnav(false)">Menu</a>
+      <a class="py-2 border-b" href="#/about" onclick="toggleMnav(false)">Tentang</a>
+      <a class="py-2 border-b" href="#/blog" onclick="toggleMnav(false)">Blog</a>
+      <a class="py-2" href="#/contact" onclick="toggleMnav(false)">Kontak</a>
+      <button class="mt-3 btn bg-brand-600 text-white" onclick="openWA()">Chat WA</button>
+    </nav>
+  </aside>
+  <div id="mnavMask" class="hidden fixed inset-0 bg-black/40 z-[55]" onclick="toggleMnav(false)"></div>
+
+  <!-- ====== PAGES ====== -->
+
+  <!-- HOME -->
+  <main id="home" class="page active">
+    <header class="max-w-6xl mx-auto px-3 sm:px-4 py-8 sm:py-12 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/70 dark:bg-slate-900/60 border border-slate-200/70 dark:border-slate-800/60 text-xs sm:text-sm">
+        <span class="text-emerald-600">●</span>  Kopi | Gultik | Indomie | Taichan dll
+      </div>
+      <h1 class="mt-3 sm:mt-4 text-3xl sm:text-5xl font-display font-extrabold leading-tight">
+        Tempat Ngopi Nostalgia <span class="bg-gradient-to-r from-brand-600 to-emerald-500 bg-clip-text text-transparent">Masa Moeda</span>
+      </h1>
+      <p class="mt-2 sm:mt-3 text-base sm:text-lg opacity-80">🕚 Buka 24 Jam • Halal • Smoking Room Indoor ber-AC</p>
+      <p class="opacity-70 text-sm sm:text-base">Jalan Pancing No 93C, Medan, Indonesia</p>
+
+      <!-- gambar utama -->
+      <div class="mt-6 sm:mt-8 relative w-full flex justify-center">
+        <div class="relative">
+          <div class="absolute -inset-2 rounded-full bg-gradient-to-br from-brand-600 to-emerald-400 opacity-30 blur-xl"></div>
+          <img src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?q=80&w=1200&auto=format&fit=crop"
+               alt="Suasana Kedai Kopi Masa Moeda"
+               class="relative floaty w-56 h-56 sm:w-72 sm:h-72 object-cover rounded-full ring-8 ring-white/60 dark:ring-slate-900/60 shadow-soft">
+        </div>
+      </div>
+
+      <div class="mt-6 sm:mt-8 flex items-center justify-center gap-2 sm:gap-3">
+        <a href="#/menu" class="btn bg-black dark:bg-white text-white dark:text-black hover:scale-[1.02] t shadow-soft text-sm sm:text-base">Lihat Menu</a>
+        <a href="#/contact" class="btn border hover:bg-white/60 dark:hover:bg-slate-900/40 t text-sm sm:text-base">Arah & Kontak</a>
+      </div>
+    </header>
+
+    <!-- USP -->
+    <section class="reveal max-w-6xl mx-auto px-3 sm:px-4 pb-6 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+      <div class="p-4 rounded-2xl border bg-white/70 dark:bg-slate-900/60 backdrop-blur t hover:-translate-y-0.5">
+        <h3 class="font-semibold">24 Jam</h3><p class="opacity-80 text-sm">Kapan pun ingin ngopi atau nugas, kami siap.</p>
+      </div>
+      <div class="p-4 rounded-2xl border bg-white/70 dark:bg-slate-900/60 backdrop-blur t hover:-translate-y-0.5">
+        <h3 class="font-semibold">Wi-Fi & Colokan</h3><p class="opacity-80 text-sm">Stabil untuk kerja kelompok & meeting online.</p>
+      </div>
+      <div class="p-4 rounded-2xl border bg-white/70 dark:bg-slate-900/60 backdrop-blur t hover:-translate-y-0.5">
+        <h3 class="font-semibold">Harga Mahasiswa</h3><p class="opacity-80 text-sm">Quality coffee, ramah kantong.</p>
+      </div>
+    </section>
+
+    <!-- GALERI MINI -->
+    <section class="reveal max-w-6xl mx-auto px-3 sm:px-4 pb-12">
+      <div class="flex items-baseline justify-between">
+        <h2 class="text-xl sm:text-2xl font-semibold">Galeri</h2>
+        <span class="text-xs sm:text-sm opacity-70">Ambience • Barista • Signature drinks</span>
+      </div>
+
+      <div class="mt-3 grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
+        <!-- Ganti source ke file-foto kamu -->
+        <img src="download (14).jpeg" loading="lazy" alt="Interior kafe 1" class="rounded-2xl cursor-pointer t hover:scale-[1.02]" onclick="lightbox(this.src)">
+        <img src="download (15).jpeg" loading="lazy" alt="Interior kafe 2" class="rounded-2xl cursor-pointer t hover:scale-[1.02]" onclick="lightbox(this.src)">
+        <img src="download (9).jpeg"  loading="lazy" alt="Menu andalan 1"  class="rounded-2xl cursor-pointer t hover:scale-[1.02]" onclick="lightbox(this.src)">
+        <img src="download (12).jpeg" loading="lazy" alt="Menu andalan 2"  class="rounded-2xl cursor-pointer t hover:scale-[1.02]" onclick="lightbox(this.src)">
+        <img src="download (13).jpeg" loading="lazy" alt="Barista"        class="rounded-2xl cursor-pointer t hover:scale-[1.02]" onclick="lightbox(this.src)">
+        <img src="download (8).jpeg"  loading="lazy" alt="Suasana malam"   class="rounded-2xl cursor-pointer t hover:scale-[1.02]" onclick="lightbox(this.src)">
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="reveal max-w-6xl mx-auto px-3 sm:px-4 pb-20 sm:pb-16">
+      <div class="rounded-2xl sm:rounded-3xl border bg-white/70 dark:bg-slate-900/60 backdrop-blur p-6 sm:p-8 text-center shadow-soft">
+        <h3 class="text-xl sm:text-2xl font-display font-semibold">Mau booking meja / order cepat?</h3>
+        <p class="opacity-80 mt-1 text-sm sm:text-base">Klik tombol di bawah, tulis pesanmu—kami balas secepatnya.</p>
+        <button onclick="openWA('Halo Masa Moeda, saya mau reservasi...')" class="mt-3 sm:mt-4 px-5 sm:px-6 py-3 rounded-2xl bg-brand-600 hover:bg-brand-700 text-white t text-sm sm:text-base">Chat WhatsApp</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- MENU (dengan KERANJANG) -->
+  <main id="menu" class="page max-w-6xl mx-auto px-3 sm:px-4 py-8 sm:py-10">
+    <h1 class="text-2xl sm:text-3xl font-bold mb-2">Menu</h1>
+    <p class="opacity-70 mb-5 sm:mb-6 text-sm">Pilih item & ukuran lalu tekan tombol untuk memasukkannya ke keranjang. Checkout via WhatsApp.</p>
+    <div id="menuWrap" class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4"></div>
+    <p class="mt-6 sm:mt-8 text-xs sm:text-sm opacity-70">NB: Beberapa item punya dua ukuran (Sedang/Besar) atau khusus (Teko).</p>
+  </main>
+
+  <!-- ABOUT -->
+  <main id="about" class="page max-w-3xl mx-auto px-3 sm:px-4 py-8 sm:py-10">
+    <h1 class="text-2xl sm:text-3xl font-bold mb-4">Tentang Kami</h1>
+    <img src="https://images.unsplash.com/photo-1498804103079-a6351b050096?q=80&w=1200&auto=format&fit=crop" alt="Kedai Kopi Masa Moeda" class="rounded-2xl shadow-soft mb-4 sm:mb-5">
+    <p class="leading-7 opacity-90 text-sm sm:text-base">
+      Kedai Kopi Masa Moeda berdiri untuk teman-teman kampus UNIMED/MMTC dan warga sekitar Pancing
+      yang butuh tempat nyaman untuk ngopi, diskusi, dan kerja hingga larut. Kami menyajikan kopi
+      house blend, series aren, serta menu kenyang seperti Indomie baskom ber-5 untuk rame-rame.
+    </p>
+
+    <div class="mt-6 sm:mt-8 p-4 sm:p-5 rounded-2xl border">
+      <h2 class="font-semibold mb-2">Ikuti & Hubungi</h2>
+      <div class="flex gap-3 sm:gap-4">
+        <a target="_blank" class="px-4 py-2 rounded-xl border text-sm" href="https://instagram.com/kedaikopimasamoeda">Instagram</a>
+        <a class="px-4 py-2 rounded-xl border text-sm" href="javascript:openWA()">WhatsApp</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- BLOG -->
+  <main id="blog" class="page max-w-6xl mx-auto px-3 sm:px-4 py-8 sm:py-10">
+    <h1 class="text-2xl sm:text-3xl font-bold mb-5 sm:mb-6">Insight & Artikel</h1>
+    <div id="blogGrid" class="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+  </main>
+
+  <!-- CONTACT -->
+  <main id="contact" class="page max-w-6xl mx-auto px-3 sm:px-4 py-8 sm:py-10 grid md:grid-cols-2 gap-5 sm:gap-6">
+    <div>
+      <h1 class="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Kontak & Lokasi</h1>
+      <p class="opacity-90 text-sm sm:text-base">Jl. Pancing No. 93C, Simpang Bhayangkara, Medan — Buka 24 jam.</p>
+      <p class="mt-2 text-sm sm:text-base">Telepon/WA: <a class="underline" href="javascript:openWA()">+62 812-xxxx-xxxx</a></p>
+      <div class="mt-3 sm:mt-4 flex gap-3">
+        <a class="px-4 py-2 rounded-xl border text-sm" target="_blank" href="https://instagram.com/kedaikopimasamoeda">Instagram</a>
+      </div>
+      <div class="mt-4 sm:mt-6">
+        <a class="underline text-sm sm:text-base" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Kedai+Kopi+Masa+Moeda+Jl.+Pancing+93C+Medan">Buka di Google Maps</a>
+      </div>
+    </div>
+    <iframe class="w-full h-56 sm:h-72 md:h-96 rounded-2xl border" loading="lazy"
+      src="https://www.google.com/maps?q=Jl.%20Pancing%2093C%20Medan&output=embed"></iframe>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t pb-20 sm:pb-0">
+    <div class="max-w-6xl mx-auto px-3 sm:px-4 py-6 sm:py-8 flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4">
+      <p class="opacity-70 text-sm sm:text-base">© <span id="y"></span> Kedai Kopi Masa Moeda</p>
+      <div class="flex gap-3 sm:gap-4">
+        <a class="underline text-sm sm:text-base" target="_blank" href="https://instagram.com/kedaikopimasamoeda">Instagram</a>
+        <a class="underline text-sm sm:text-base" href="javascript:openWA()">WhatsApp</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightbox modal -->
+  <div id="lb" class="hidden fixed inset-0 bg-black/70 items-center justify-center p-6">
+    <img id="lbimg" src="" class="max-h-[90vh] rounded-2xl shadow-soft">
+  </div>
+
+  <!-- CART DRAWER -->
+  <aside id="cart" class="fixed top-0 right-0 w-full sm:w-[26rem] h-full bg-white dark:bg-slate-950 shadow-2xl translate-x-full t z-[60]">
+    <div class="h-full flex flex-col">
+      <div class="px-4 sm:px-5 py-3 sm:py-4 border-b flex items-center justify-between">
+        <h3 class="text-lg sm:text-xl font-semibold">Keranjang</h3>
+        <button class="text-sm underline" onclick="toggleCart(false)">Tutup</button>
+      </div>
+      <div id="cartList" class="flex-1 overflow-auto p-3 sm:p-4 space-y-3"></div>
+      <div class="border-t p-3 sm:p-4 space-y-2">
+        <div class="flex items-center justify-between text-sm sm:text-base"><span class="opacity-70">Subtotal</span><b id="cartSubtotal">Rp0</b></div>
+        <button onclick="checkoutWA()" class="w-full btn bg-brand-600 hover:bg-brand-700 text-white">Checkout via WhatsApp</button>
+      </div>
+    </div>
+  </aside>
+  <div id="cartMask" class="hidden fixed inset-0 bg-black/40 z-[55]" onclick="toggleCart(false)"></div>
+
+  <!-- MOBILE CART STICKY BAR -->
+  <div id="cartBar" class="sm:hidden fixed bottom-3 inset-x-3 z-[58]">
+    <button onclick="toggleCart(true)" class="w-full px-4 py-3 rounded-2xl shadow-soft bg-black text-white dark:bg-white dark:text-black t flex items-center justify-between">
+      <span class="text-sm font-medium">Lihat Keranjang</span>
+      <span class="text-sm">🛒 <b id="cartCountBar">0</b> • <span id="cartTotalBar">Rp0</span></span>
+    </button>
+  </div>
+
+  <!-- ====== APP SCRIPT ====== -->
+  <script>
+    /* ===== KONFIG ===== */
+    const WA_NUMBER = '+62 812-xxxx-xxxx'; // GANTI nomor resmi
+
+    /* ===== Helper: format & WA ===== */
+    const fmt = (n)=>'Rp'+(n||0).toLocaleString('id-ID');
+    function onlyDigits(s){ return (s||'').replace(/\D/g,''); }
+    function openWA(msg){
+      const url = 'https://wa.me/'+onlyDigits(WA_NUMBER)+'?text='+encodeURIComponent(msg||'Halo Masa Moeda, saya mau tanya menu & reservasi.');
+      window.open(url,'_blank');
+    }
+
+    /* ===== Lightbox ===== */
+    function lightbox(src){
+      const box = document.getElementById('lb');
+      const img = document.getElementById('lbimg');
+      if(!box||!img) return;
+      img.src = src; box.classList.remove('hidden'); box.classList.add('flex');
+    }
+    document.addEventListener('click', (e)=>{
+      const box = document.getElementById('lb');
+      if(e.target?.id === 'lb'){ box.classList.add('hidden'); box.classList.remove('flex'); }
+    });
+
+    /* ===== Nav shadow saat scroll ===== */
+    (function(){
+      const nav = document.getElementById('nav'); if(!nav) return;
+      const onScroll = () => { (window.scrollY>8) ? nav.classList.add('shadow') : nav.classList.remove('shadow'); };
+      document.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+    })();
+
+    /* ===== Dark mode toggle ===== */
+    (function(){
+      const btn = document.getElementById('themeBtn');
+      const key = 'mm-theme';
+      const root = document.documentElement;
+      const set = (mode) => { mode==='dark'?root.classList.add('dark'):root.classList.remove('dark'); localStorage.setItem(key, mode); };
+      set(localStorage.getItem(key) || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+      if(btn){ btn.addEventListener('click', ()=> set(root.classList.contains('dark') ? 'light' : 'dark')); }
+    })();
+
+    /* ===== Scroll reveal ===== */
+    (function(){
+      const els = document.querySelectorAll('.reveal');
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(ent=>{
+          if(ent.isIntersecting){
+            ent.target.animate([{opacity:0, transform:'translateY(12px)'},{opacity:1, transform:'translateY(0)'}], {duration:500, easing:'ease', fill:'forwards'});
+            io.unobserve(ent.target);
+          }
+        });
+      }, {threshold:.12});
+      els.forEach(el=> io.observe(el));
+    })();
+
+    /* ===== Mobile Nav ===== */
+    const mnav = document.getElementById('mnav');
+    const mnavMask = document.getElementById('mnavMask');
+    document.getElementById('menuBtn')?.addEventListener('click', ()=> toggleMnav(true));
+    function toggleMnav(open){
+      mnav.style.transform = open ? 'translateX(0)' : 'translateX(-100%)';
+      mnavMask.classList.toggle('hidden', !open);
+    }
+
+    /* ===== Mini Router (SPA) ===== */
+    function setRoute(){
+      const hash = (location.hash || '#/').replace('#','');
+      document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+      const id = (hash === '/') ? 'home' : hash.slice(1);
+      const page = document.getElementById(id);
+      if(page){ page.classList.add('active'); window.scrollTo({top:0, behavior:'instant'}); }
+      toggleMnav(false);
+    }
+    window.addEventListener('hashchange', setRoute);
+    document.addEventListener('DOMContentLoaded', setRoute);
+
+    /* ===== DATA MENU ===== */
+    const MENU = [
+      {cat:'Seri Kopi Arabica', items:[
+        {n:'Kopi Masa Moeda', variants:[{v:'Sedang', price:28000}]},
+        {n:'Sanger Masa Moeda', variants:[{v:'Sedang', price:18000}]},
+        {n:'Spanish Moeda', variants:[{v:'Sedang', price:22000},{v:'Besar', price:25000}]},
+        {n:'Karamel Garam Laut', variants:[{v:'Sedang', price:29000},{v:'Besar', price:34000}]},
+        {n:'Americano (P/D)', variants:[{v:'Sedang', price:15000},{v:'Besar', price:18000}]},
+        {n:'Berrycano', variants:[{v:'Sedang', price:20000}]},
+        {n:'Dirty Latte', variants:[{v:'Sedang', price:25000}]},
+        {n:'Butterscotch Garam Laut', variants:[{v:'Sedang', price:25000}]}
+      ]},
+      {cat:'Seri Kopi Houseblend', items:[
+        {n:'Kopi Aren Masa Moeda (P/D)', variants:[{v:'Sedang', price:25000},{v:'Besar', price:30000}]},
+        {n:'Kopi Pandan Doeloe (P/D)', variants:[{v:'Sedang', price:27000},{v:'Besar', price:32000}]},
+        {n:'Kopi Vanila Nostalgia (P/D)', variants:[{v:'Sedang', price:27000},{v:'Besar', price:32000}]},
+        {n:'Machiato Jadoel', variants:[{v:'Sedang', price:29000},{v:'Besar', price:34000}]},
+        {n:'Kopi Susu Kelapa', variants:[{v:'Sedang', price:20000},{v:'Besar', price:25000}]},
+        {n:'Kopi Mint Moeda (P/D)', variants:[{v:'Sedang', price:28000},{v:'Besar', price:33000}]}
+      ]},
+      {cat:'Bukan Kopi-kopian', items:[
+        {n:'Seger Lemon', variants:[{v:'Sedang', price:12000},{v:'Besar', price:15000}]},
+        {n:'Susu Biskuit Oreo', variants:[{v:'Sedang', price:25000},{v:'Besar', price:30000}]},
+        {n:'Matcha Moeda', variants:[{v:'Sedang', price:29000},{v:'Besar', price:34000}]},
+        {n:'Cokelat Hazelnut (P/D)', variants:[{v:'Sedang', price:25000},{v:'Besar', price:28000}]},
+        {n:'Milo Moeda (P/D)', variants:[{v:'Sedang', price:22000},{v:'Besar', price:26000}]},
+        {n:'Milo Machiato', variants:[{v:'Sedang', price:26000},{v:'Besar', price:29000}]},
+        {n:'Mineral Water', variants:[{v:'Sedang', price:8000}]}
+      ]},
+      {cat:'Makan Biar Kenyang', items:[
+        {n:'Nasi Gultik Ayam', variants:[{v:'Porsi', price:15000}]},
+        {n:'Mie Goreng Masa Moeda', variants:[{v:'Porsi', price:15000}]},
+        {n:'Indomie Goreng/Kuah', variants:[{v:'Porsi', price:15000}]},
+        {n:'Roti Bakar Seri Kaya', variants:[{v:'Porsi', price:12000}]},
+        {n:'Pisang Goreng Seri Kaya', variants:[{v:'Porsi', price:15000}]},
+        {n:'Kentang Goreng', variants:[{v:'Porsi', price:12000}]},
+        {n:'Indomie Baskom Ber-5', variants:[{v:'Porsi', price:199000}]},
+        {n:'Sate Taichan', variants:[{v:'8 tusuk', price:20000},{v:'30 tusuk', price:70000},{v:'50 tusuk', price:110000}]}
+      ]},
+      {cat:'Paket Spesial', items:[
+        {n:'Kopi Teko Masa Moeda (Paket 4)', variants:[{v:'Teko', price:65000}]}
+      ]}
+    ];
+
+    /* ===== RENDER MENU ===== */
+    function renderMenu(){
+      const wrap = document.getElementById('menuWrap'); if(!wrap) return;
+      wrap.innerHTML = MENU.map(group => `
+        <section class="rounded-2xl border bg-white/70 dark:bg-slate-900/60 backdrop-blur p-4 sm:p-5">
+          <h2 class="text-lg sm:text-xl font-semibold mb-3">${group.cat}</h2>
+          <div class="grid gap-2 sm:gap-3">
+            ${group.items.map(it => `
+              <div class="p-3 rounded-2xl border t hover:bg-white/60 dark:hover:bg-slate-900/40">
+                <div class="flex items-center justify-between gap-2 flex-wrap">
+                  <div class="font-medium text-sm sm:text-base">${it.n}</div>
+                  <div class="flex flex-wrap gap-2">
+                    ${it.variants.map(v => `
+                      <button class="px-3 py-1.5 rounded-xl border text-xs sm:text-sm"
+                        onclick="addToCart('${it.n}','${v.v}',${v.price})">
+                        ${v.v} • ${fmt(v.price)}
+                      </button>
+                    `).join('')}
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </section>
+      `).join('');
+    }
+    renderMenu();
+
+    /* ===== CART STATE ===== */
+    const cart = []; // {name, variant, price, qty}
+    const cartList = document.getElementById('cartList');
+    const cartSubtotalEl = document.getElementById('cartSubtotal');
+    const cartCountEl = document.getElementById('cartCount');
+    const cartCountBar = document.getElementById('cartCountBar');
+    const cartTotalBar = document.getElementById('cartTotalBar');
+    const mask = document.getElementById('cartMask');
+    const drawer = document.getElementById('cart');
+
+    function toggleCart(open){
+      drawer.style.transform = open ? 'translateX(0)' : 'translateX(100%)';
+      mask.classList.toggle('hidden', !open);
+    }
+
+    function addToCart(name, variant, price){
+      const key = name+'|'+variant+'|'+price;
+      const found = cart.find(i=>i.key===key);
+      if(found) found.qty += 1;
+      else cart.push({key, name, variant, price, qty:1});
+      renderCart();
+      toggleCart(true);
+    }
+    function changeQty(key, delta){
+      const it = cart.find(i=>i.key===key); if(!it) return;
+      it.qty += delta;
+      if(it.qty<=0){ removeItem(key); return; }
+      renderCart();
+    }
+    function removeItem(key){
+      const idx = cart.findIndex(i=>i.key===key);
+      if(idx>-1) cart.splice(idx,1);
+      renderCart();
+    }
+    function subtotal(){
+      return cart.reduce((s,i)=> s + i.qty*i.price, 0);
+    }
+    function renderCart(){
+      cartList.innerHTML = cart.length ? cart.map(i=>`
+        <div class="p-3 rounded-xl border flex items-center justify-between gap-3">
+          <div>
+            <div class="font-medium text-sm sm:text-base">${i.name}</div>
+            <div class="text-xs sm:text-sm opacity-70">${i.variant} • ${fmt(i.price)}</div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button class="px-3 py-1 rounded-lg border" onclick="changeQty('${i.key}',-1)">−</button>
+            <b>${i.qty}</b>
+            <button class="px-3 py-1 rounded-lg border" onclick="changeQty('${i.key}',1)">+</button>
+            <button class="px-3 py-1 rounded-lg border" onclick="removeItem('${i.key}')">🗑️</button>
+          </div>
+        </div>
+      `).join('') : `<div class="opacity-70 text-center py-10 text-sm">Keranjang masih kosong.</div>`;
+      cartSubtotalEl.textContent = fmt(subtotal());
+      const count = cart.reduce((s,i)=>s+i.qty,0);
+      cartCountEl.textContent = count;
+      cartCountBar.textContent = count;
+      cartTotalBar.textContent = fmt(subtotal());
+    }
+
+    function checkoutWA(){
+      if(!cart.length){ alert('Keranjang kosong. Tambahkan item dulu.'); return; }
+      const lines = cart.map(i=>`- ${i.name} (${i.variant}) x${i.qty} @ ${fmt(i.price)} = ${fmt(i.qty*i.price)}`);
+      const total = fmt(subtotal());
+      const header = `Halo Masa Moeda! Saya mau pesan:\n\n`;
+      const footer = `\nSubtotal: ${total}\n\nNama:\nMeja/Takeaway:\nCatatan (tanpa gula/es? level pedas?):`;
+      const msg = header + lines.join('\n') + footer;
+      openWA(msg);
+    }
+
+    /* ===== BLOG ===== */
+    const POSTS = [
+      {t:"5 Cemilan Paling Cocok untuk Kopi Susu Aren",img:"https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?q=80&w=1200&auto=format&fit=crop"},
+      {t:"Kenapa Wi-Fi Stabil Penting buat Nugas di Kafe",img:"https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop"},
+      {t:"Arabica vs Houseblend: Mana yang Pas buat Kamu?",img:"https://images.unsplash.com/photo-1512568400610-62da28bc8a13?q=80&w=1200&auto=format&fit=crop"},
+      {t:"Rahasia Es Kopi Garam Laut: Asin Tipis, Manis Pas",img:"https://images.unsplash.com/photo-1509043759401-136742328bb3?q=80&w=1200&auto=format&fit=crop"},
+      {t:"Tips Hemat di Kafe: Student Night & Bawa Tumbler",img:"https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=1200&auto=format&fit=crop"},
+      {t:"Indomie Baskom Ber-5: Seru-seruan Tanpa Ribet",img:"https://images.unsplash.com/photo-1526312426976-593c2d0fbf19?q=80&w=1200&auto=format&fit=crop"},
+      {t:"Dirty Latte: Kombinasi Espresso dan Susu yang Bold",img:"https://images.unsplash.com/photo-1432117068802-b224427256a5?q=80&w=1200&auto=format&fit=crop"},
+      {t:"Spot Colokan Favorit di Masa Moeda (versi pelanggan)",img:"https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=1200&auto=format&fit=crop"},
+      {t:"Manual Brew untuk Pemula: Mulai dari Americano",img:"https://images.unsplash.com/photo-1459755486867-b55449bb39ff?q=80&w=1200&auto=format&fit=crop"},
+      {t:"Checklist Belajar Kelompok Produktif di Kafe",img:"https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?q=80&w=1200&auto=format&fit=crop"}
+    ];
+    (function renderBlog(){
+      const wrap = document.getElementById('blogGrid'); if(!wrap) return;
+      wrap.innerHTML = POSTS.map(p=>`
+        <article class="rounded-2xl border overflow-hidden bg-white/70 dark:bg-slate-900/60 backdrop-blur">
+          <img src="${p.img}" alt="${p.t}" class="w-full h-40 object-cover">
+          <div class="p-4">
+            <h3 class="font-semibold text-sm sm:text-base">${p.t}</h3>
+            <p class="mt-1 text-xs sm:text-sm opacity-80">Insight singkat seputar makanan & kopi. Baca selengkapnya…</p>
+            <a class="inline-block mt-3 underline text-sm" href="#">Baca</a>
+          </div>
+        </article>
+      `).join('');
+    })();
+
+    /* tahun footer */
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
