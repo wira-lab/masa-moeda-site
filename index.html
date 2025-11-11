@@ -1,6 +1,23 @@
 <!doctype html>
 <html lang="id" class="scroll-smooth">
+  <!-- Privacy-friendly analytics by Plausible -->
+<script async src="https://plausible.io/js/pa-MlaHcXWqtIMuGRlecBCMo.js"></script>
+<script>
+  // aktifkan pelacakan untuk navigasi hash (#/menu, #/about, dll)
+  window.plausible = window.plausible || function() {
+    (plausible.q = plausible.q || []).push(arguments);
+  };
+  window.addEventListener("hashchange", () => plausible("pageview"));
+</script>
+
 <head>
+  <!-- Plausible Analytics -->
+<script defer data-domain="masa-moeda-site.vercel.app,masamoeda.id" src="https://plausible.io/js/script.js"></script>
+<script>
+  // SPA hash router tracking
+  window.plausible = window.plausible || function(){ (window.plausible.q = window.plausible.q || []).push(arguments) };
+  window.addEventListener('hashchange', () => plausible('pageview'));
+</script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kedai Kopi Masa Moeda — 24 Jam • Jl. Pancing 93C</title>
@@ -414,6 +431,8 @@
       if(found) found.qty += 1;
       else cart.push({key, name, variant, price, qty:1});
       renderCart();
+      plausible('Add to Cart', { props: { item: name, variant: variant, price: price } });
+
       toggleCart(true);
     }
     function changeQty(key, delta){
@@ -459,6 +478,8 @@
       const header = `Halo Masa Moeda! Saya mau pesan:\n\n`;
       const footer = `\nSubtotal: ${total}\n\nNama:\nMeja/Takeaway:\nCatatan (tanpa gula/es? level pedas?):`;
       const msg = header + lines.join('\n') + footer;
+      plausible('Checkout WhatsApp', { props: { items: cart.length, subtotal: subtotal() } });
+
       openWA(msg);
     }
 
