@@ -937,32 +937,36 @@ function sharePost(){
   }
 }
 
-/* ===== VISIT COUNTER (LOCAL) ===== */
-document.addEventListener('DOMContentLoaded', () => {
-  const KEY = 'mm-visit-count';
-  let count = parseInt(localStorage.getItem(KEY) || '0', 10);
-  if (isNaN(count)) count = 0;
 
-  count += 1;
-  localStorage.setItem(KEY, String(count));
 
-  const el = document.getElementById('visitCount');
-  if (el) el.textContent = count;
-
-  // optional: kirim ke Plausible
-  if (window.plausible) {
-    plausible('Local Visit', { props: { count } });
-  }
-});
 
 </script>
-<!-- MINI TRAFFIC BADGE -->
-<div id="visitBadge"
-     class="fixed left-3 bottom-3 z-[57] inline-flex items-center gap-2 px-3 py-2 rounded-full bg-black/80 text-white text-xs shadow-soft backdrop-blur">
-  <span>👀 Trafik kamu:</span>
-  <b id="visitCount">0</b>
-  <span class="opacity-70 text-[10px]">kali buka</span>
-</div>
+
+ <!-- ================== HISTATS COUNTER ================== -->
+<div id="histats_counter"></div>
+
+<script type="text/javascript">
+var _Hasync= _Hasync|| [];
+_Hasync.push(['Histats.start', '1,4991247,4,428,112,75,00011111']);
+_Hasync.push(['Histats.fasi', '1']);
+_Hasync.push(['Histats.track_hits', '']);
+(function() {
+  var hs = document.createElement('script'); 
+  hs.type = 'text/javascript'; 
+  hs.async = true;
+  hs.src = ('//s10.histats.com/js15_as.js');
+  (document.getElementsByTagName('head')[0] || 
+   document.getElementsByTagName('body')[0]).appendChild(hs);
+})();
+</script>
+
+<noscript>
+  <a href="/" target="_blank">
+    <img src="//sstatic1.histats.com/0.gif?4991247&101" alt="free counter" border="0">
+  </a>
+</noscript>
+<!-- ================== END HISTATS COUNTER ================== -->
+
 
 
 </body>
